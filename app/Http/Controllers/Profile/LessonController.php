@@ -23,7 +23,7 @@ class LessonController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(User $profile) {
-		$lessons = Auth::user()->can('lesson.index') ? Lesson::paginate(15) : Lesson::belongsToUser()->paginate(15);
+		$lessons = Auth::user()->hasRole(['admin', 'moderator']) ? Lesson::paginate(15) : Lesson::belongsToUser()->paginate(15);
 		return view('profile.lessons.index', compact('profile', 'lessons'));
 	}
 

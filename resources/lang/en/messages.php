@@ -7,7 +7,7 @@ return [
 	'subject.store' => 'This subject has been added to the database',
 	'subject.updated' => 'This subject has been updated in the database',
 	'subject.deleted' => 'This subject has been deleted from the database',
-	'level.store' => 'This level has been stored in the database',
+	'level.store' => 'Thank you for submitting a lesson. If will now be reviewed by one of our team and published.',
 	'level.updated' => 'This level has been updated in the database',
 	'level.deleted' => 'This level has been deleted from the database',
 	'user.updated' => 'This user has been updated in the database',
