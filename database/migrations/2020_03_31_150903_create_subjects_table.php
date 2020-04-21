@@ -20,9 +20,6 @@ class CreateSubjectsTable extends Migration {
 			$table->unsignedBigInteger('language_id')->default(1);
 			$table->timestamps();
 		});
-
-		Subject::create(['name' => 'Maths']);
-		Subject::create(['name' => 'English']);
 	}
 
 	/**
