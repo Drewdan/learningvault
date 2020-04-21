@@ -2,7 +2,7 @@ name: Laravel
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ develop, feature ]
   pull_request:
     branches: [ develop ]
 
@@ -17,15 +17,14 @@ jobs:
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-    - name: Create Database
-      run: |
-        mkdir -p database
-        touch database/database.sqlite
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-    - name: Run Migrations and Seed
-      run: php artisan migrate:fresh --seed
+    - name: Create Database, Run Migrations & Seed
+      run: |
+        mkdir -p database
+        touch database/database.sqlite
+        php artisan migrate:fresh --seed
     - name: Generate key
       run: php artisan key:generate
     - name: Directory Permissions
