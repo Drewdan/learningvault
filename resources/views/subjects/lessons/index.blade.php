@@ -9,6 +9,7 @@
 			<a href="{{ route('lesson.create', compact('subject')) }}" class="btn btn-primary">Submit a Lesson</a>
 		</div>
 	</div>
+	@include('layouts.messages')
 	<div class="row">
 		@foreach($lessons as $lesson)
 			<div class="col-sm-12 col-md-6 my-2">
