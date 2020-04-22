@@ -4,22 +4,22 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Lesson;
 use App\Subject;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Tests\RefreshDatabaseAndMigrate;
 use Tests\TestCase;
 
 class LessonControllerTest extends TestCase {
 
-	use DatabaseTransactions, WithFaker;
+	use RefreshDatabaseAndMigrate, WithFaker;
 
 	protected $subject;
 
 	public function setUp(): void {
 		parent::setUp();
 		$this->signIn();
-		$this->subject = Subject::first();
+		$this->subject = factory(Subject::class)->create();
 	}
 
 	public function testShowsTheLessonIndexRouteForASubject() {
@@ -36,7 +36,7 @@ class LessonControllerTest extends TestCase {
 	}
 
 	public function testStoresLesson() {
-		Storage::fake('public');
+		Storage::fake('local');
 		$lessonData = [
 			'name' => $this->faker->word,
 			'description' => $this->faker->sentence,
@@ -85,10 +85,10 @@ class LessonControllerTest extends TestCase {
 			'original_name' => 'worksheet2.txt',
 		]);
 
-		Storage::disk('public')->assertExists('files/' . $learningMaterial1->hashName());
-		Storage::disk('public')->assertExists('files/' . $learningMaterial2->hashName());
-		Storage::disk('public')->assertExists('files/' . $worksheet1->hashName());
-		Storage::disk('public')->assertExists('files/' . $worksheet2->hashName());
+		Storage::disk('local')->assertExists('files/' . $learningMaterial1->hashName());
+		Storage::disk('local')->assertExists('files/' . $learningMaterial2->hashName());
+		Storage::disk('local')->assertExists('files/' . $worksheet1->hashName());
+		Storage::disk('local')->assertExists('files/' . $worksheet2->hashName());
 
 		//assert the files in the file system
 		//
@@ -116,7 +116,7 @@ class LessonControllerTest extends TestCase {
 
 	public function testUpdatesTheLesson() {
 		$lesson = factory(Lesson::class)->create();
-		Storage::fake('public');
+		Storage::fake('local');
 		$lessonData = [
 			'name' => $this->faker->word,
 			'description' => $this->faker->sentence,
@@ -164,10 +164,10 @@ class LessonControllerTest extends TestCase {
 			'original_name' => 'worksheet4.txt',
 		]);
 
-		Storage::disk('public')->assertExists('files/' . $learningMaterial3->hashName());
-		Storage::disk('public')->assertExists('files/' . $learningMaterial4->hashName());
-		Storage::disk('public')->assertExists('files/' . $worksheet3->hashName());
-		Storage::disk('public')->assertExists('files/' . $worksheet4->hashName());
+		Storage::disk('local')->assertExists('files/' . $learningMaterial3->hashName());
+		Storage::disk('local')->assertExists('files/' . $learningMaterial4->hashName());
+		Storage::disk('local')->assertExists('files/' . $worksheet3->hashName());
+		Storage::disk('local')->assertExists('files/' . $worksheet4->hashName());
 
 		$response->assertStatus(302);
 		$response->assertRedirect('/subject/' . $this->subject->slug . '/lesson');

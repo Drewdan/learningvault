@@ -3,6 +3,7 @@
 namespace Tests;
 
 use App\User;
+use Tests\RefreshDatabaseAndMigrate;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase {
@@ -13,6 +14,14 @@ abstract class TestCase extends BaseTestCase {
 	protected $moderator = 'moderator@example.com';
 
 	protected $user = 'user@example.com';
+
+	public function setUp(): void {
+		parent::setUp();
+		$uses = array_flip(class_uses_recursive(static::class));
+		if (isset($uses[RefreshDatabaseAndMigrate::class])) {
+			$this->refreshDatabase();
+		}
+	}
 
 	/**
 	 * Gets the user model

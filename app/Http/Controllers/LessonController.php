@@ -61,10 +61,11 @@ class LessonController extends Controller {
 
 		foreach ($data['learning_materials'] as $material) {
 			$file = $material->store('files');
-			$foo = $lesson->learningMaterials()->create([
+			$lesson->learningMaterials()->create([
 				'file' => $file,
 				'original_name' => $material->getClientOriginalName(),
 			]);
+			// dd($file);
 		}
 
 		return redirect()->route('lesson.index', compact('subject'))->withMessage(__('messages.lesson.store'));

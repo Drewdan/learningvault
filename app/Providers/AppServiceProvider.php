@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function boot() {
 		Schema::defaultStringLength(191);
-		//View::share('subjects', Subject::all() ?? null);
+		if (!app()->runningInConsole()) {
+			View::share('subjects', Subject::all() ?? null);
+		} else {
+			View::share('subjects', []);
+		}
 	}
 }

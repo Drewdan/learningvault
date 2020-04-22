@@ -3,13 +3,13 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Level;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\RefreshDatabaseAndMigrate;
 use Tests\TestCase;
 
 class LevelControllerTest extends TestCase {
 
-	use DatabaseTransactions, WithFaker;
+	use RefreshDatabaseAndMigrate, WithFaker;
 
 	public function setUp(): void {
 		parent::setUp();

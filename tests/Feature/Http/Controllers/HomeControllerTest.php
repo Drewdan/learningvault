@@ -2,14 +2,16 @@
 
 namespace Tests\Feature\Http\Controllers;
 
+use App\Subject;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\RefreshDatabaseAndMigrate;
 
 class HomeControllerTest extends TestCase {
 
-	use DatabaseTransactions;
+	use RefreshDatabaseAndMigrate;
 
 	public function testTheDashboardPageLoads() {
+		factory(Subject::class)->create();
 		$response = $this->get('/');
 		$response->assertStatus(200);
 		$response->assertViewHas(['subjects']);

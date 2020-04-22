@@ -3,14 +3,14 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Subject;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Str;
 use Tests\TestCase;
+use Illuminate\Support\Str;
+use Tests\RefreshDatabaseAndMigrate;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class SubjectControllerTest extends TestCase {
 
-	use DatabaseTransactions, WithFaker;
+	use RefreshDatabaseAndMigrate, WithFaker;
 
 	public function testTheIndexPageLoads() {
 		$this->signIn();

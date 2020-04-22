@@ -17,8 +17,6 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::resource('user', 'UserController')->except(['create', 'store']);
-
 Route::prefix('games')->group(function () {
 	Route::get('/mathematical-magicians', 'Games\MathematicalMagiciansController@index')->name('games.mathematical-magicians');
 });
