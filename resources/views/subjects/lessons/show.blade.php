@@ -22,7 +22,14 @@
 					@foreach($lesson->learningMaterials as $learningMaterial)
 						<li class="list-group-item">
 							{{ $learningMaterial->original_name }} - {{ $learningMaterial->size }}Kb
-							<a href="{{ route('file-download.show', ['file' => $learningMaterial->file, 'type' => 'learningMaterial' ]) }}" class="btn btn-outline-success btn-sm float-right">Download</a>
+							<a href="{{ route('file-download.show', ['file' => $learningMaterial->file, 'type' => 'learningMaterial' ]) }}" class="btn btn-outline-success btn-sm float-right">
+								@auth
+									Download
+								@endauth
+								@guest
+									Login to Download Files
+								@endguest
+							</a>
 						</li>
 					@endforeach
 				</ul>
@@ -35,7 +42,14 @@
 				@foreach($lesson->worksheets as $worksheet)
 						<li class="list-group-item">
 							{{ $worksheet->original_name }} - {{ $learningMaterial->size }}Kb
-							<a href="{{ route('file-download.show', ['file' => $worksheet->file, 'type' => 'worksheet' ]) }}" class="btn btn-outline-success btn-sm float-right">Download</a>
+							<a href="{{ route('file-download.show', ['file' => $worksheet->file, 'type' => 'worksheet' ]) }}" class="btn btn-outline-success btn-sm float-right">
+								@auth
+									Download
+								@endauth
+								@guest
+									Login to Download Files
+								@endguest
+							</a>
 						</li>
 					@endforeach
 				</ul>

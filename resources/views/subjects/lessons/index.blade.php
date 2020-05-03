@@ -29,8 +29,8 @@
 					</ul>
 					<div class="card-footer">
 						<a class="btn btn-success" href="{{ route('lesson.show', compact('subject', 'lesson')) }}">View Lesson</a>
-						@can('lesson.update', $lesson)
-							<a class="btn btn-info" href="{{ route('lesson.edit', compact('subject', 'lesson')) }}">Edit Lesson</a>
+						@can('update', $lesson)
+							<a class="btn btn-info" href="{{ route('profile.lesson.edit', ['subject' => $subject, 'lesson' => $lesson, 'profile' => Auth::user()]) }}">Edit Lesson</a>
 						@endcan
 					</div>
 				</div>

@@ -3,6 +3,11 @@
 @section('content')
 	<div class="row">
 		<div class="col-sm-12">
+			@cannot('updateAny', $lesson)
+				<div class="alert alert-warning">
+					Making a change to this lesson will cause the lesson to become unpublished whilst a member of the team rereviews the lesson.
+				</div>
+			@endcannot
 			<form action="{{ route('profile.lesson.update', compact('profile', 'lesson')) }}" method="post" enctype="multipart/form-data">
 				<div class="card">
 						@csrf
@@ -99,13 +104,15 @@
 								<label>Created By</label>
 								<input type="text" class="form-control" value="{{ $lesson->user->name }}" readonly>
 							</div>
-							<div class="form-group">
-								<label>Published</label>
-								<select name="published" class="form-control">
-									<option value="1">Published</option>
-									<option value="0">Unpublished</option>
-								</select>	
-							</div>
+							@can('publishAny', $lesson)
+								<div class="form-group">
+									<label>Published</label>
+									<select name="published" class="form-control">
+										<option value="1">Published</option>
+										<option value="0">Unpublished</option>
+									</select>	
+								</div>
+							@endcan
 							<div class="form-group">
 								<label>Show Author Name?</label>
 								<select class="form-control" name="show_author">

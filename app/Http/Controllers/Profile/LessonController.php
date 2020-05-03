@@ -81,6 +81,9 @@ class LessonController extends Controller {
 	 */
 	public function update(UpdateRequest $request, User $profile, Lesson $lesson) {
 		$lesson->update($request->validated());
+		if ($profile->cannot('publishAny', $lesson)) {
+			$lesson->update(['published' => false]);
+		}
 		return redirect()->route('profile.lesson.index', compact('profile'))->withMessage(__('messages.lesson.updated'));
 	}
 
