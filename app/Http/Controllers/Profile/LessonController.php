@@ -23,8 +23,12 @@ class LessonController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(User $profile) {
-		$lessons = Auth::user()->hasRole(['admin', 'moderator']) ? Lesson::paginate(15) : Lesson::belongsToUser()->paginate(15);
-		return view('profile.lessons.index', compact('profile', 'lessons'));
+		$lessons = Auth::user()->hasRole(['admin', 'moderator']) ? Lesson::orderBy('published_at', 'asc')->paginate(15) : Lesson::belongsToUser()->paginate(15);
+		return view('profile.lessons.index', [
+			'profile' => $profile,
+			'lessons' => $lessons,
+			'unpublished' => Lesson::unpublished()->get()->count(),
+		]);
 	}
 
 	/**
