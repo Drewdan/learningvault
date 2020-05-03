@@ -98,6 +98,22 @@ class LessonControllerTest extends TestCase {
 		$response->assertRedirect('/subject/' . $this->subject->slug . '/lesson');
 	}
 
+	public function testAddingALessonWithoutSupportMaterial() {
+		$lessonData = [
+			'name' => $this->faker->word,
+			'description' => $this->faker->sentence,
+			'level_id' => 1,
+			'show_author' => 1,
+		];
+
+		$response = $this->post('/subject/' . $this->subject->slug . '/lesson', $lessonData);
+
+		$this->assertDatabaseHas('lessons', $lessonData);
+
+		$response->assertStatus(302);
+		$response->assertRedirect('/subject/' . $this->subject->slug . '/lesson');
+	}
+
 	public function testShowingALesson() {
 		$lesson = factory(Lesson::class)->create();
 		$response = $this->get('/subject/' . $this->subject->slug . '/lesson/' . $lesson->slug);

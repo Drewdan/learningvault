@@ -51,20 +51,24 @@ class LessonController extends Controller {
 		$lesson->user()->associate(Auth::user());
 		$lesson->save();
 
-		foreach ($data['worksheets'] as $worksheet) {
-			$file = $worksheet->store('files');
-			$lesson->worksheets()->create([
-				'file' => $file,
-				'original_name' => $worksheet->getClientOriginalName(),
-			]);
+		if (isset($data['worksheets'])) {
+			foreach ($data['worksheets'] as $worksheet) {
+				$file = $worksheet->store('files');
+				$lesson->worksheets()->create([
+					'file' => $file,
+					'original_name' => $worksheet->getClientOriginalName(),
+				]);
+			}
 		}
 
-		foreach ($data['learning_materials'] as $material) {
-			$file = $material->store('files');
-			$lesson->learningMaterials()->create([
-				'file' => $file,
-				'original_name' => $material->getClientOriginalName(),
-			]);
+		if (isset($data['learning_materials'])) {
+			foreach ($data['learning_materials'] as $material) {
+				$file = $material->store('files');
+				$lesson->learningMaterials()->create([
+					'file' => $file,
+					'original_name' => $material->getClientOriginalName(),
+				]);
+			}
 		}
 
 		return redirect()->route('lesson.index', compact('subject'))->withMessage(__('messages.lesson.store'));
