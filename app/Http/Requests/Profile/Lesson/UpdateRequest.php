@@ -17,8 +17,8 @@ class UpdateRequest extends FormRequest {
 			'description' => 'required',
 			'level_id' => 'required|exists:levels,id',
 			'show_author' => 'boolean',
-			'worksheets' => 'nullable',
-			'learning_materials' => 'nullable',
+			'worksheets.*' => 'sometimes|file',
+			'learning_materials.*' => 'sometimes|file',
 			'published' => 'required|boolean',
 		];
 	}

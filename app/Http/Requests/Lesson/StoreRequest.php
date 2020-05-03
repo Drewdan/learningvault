@@ -18,8 +18,8 @@ class StoreRequest extends FormRequest {
 			'description' => 'required',
 			'level_id' => 'required|exists:levels,id',
 			'show_author' => 'boolean',
-			'worksheets' => 'required',
-			'learning_materials' => 'required',
+			'worksheets.*' => 'sometimes|file',
+			'learning_materials.*' => 'sometimes|file',
 		];
 	}
 }
