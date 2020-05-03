@@ -19,6 +19,7 @@ class Lesson extends Model {
 		'description',
 		'level_id',
 		'show_author',
+		'published',
 	];
 
 	protected $casts = [
@@ -71,6 +72,10 @@ class Lesson extends Model {
 
 	public function scopePublished($query) {
 		return $query->where('published', '=', true);
+	}
+
+	public function scopeUnpublished($query) {
+		return $query->where('published', '=', 'null');
 	}
 
 	public function scopeBelongsToUser($query) {

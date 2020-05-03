@@ -61,4 +61,8 @@ class LessonPolicy {
 	public function delete(User $user, Lesson $lesson): bool {
 		return $user->can('lesson.delete');
 	}
+
+	public function publishAny(User $user): bool {
+		return $user->can('lesson.update');
+	}
 }

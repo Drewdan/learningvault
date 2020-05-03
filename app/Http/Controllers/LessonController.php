@@ -65,7 +65,6 @@ class LessonController extends Controller {
 				'file' => $file,
 				'original_name' => $material->getClientOriginalName(),
 			]);
-			// dd($file);
 		}
 
 		return redirect()->route('lesson.index', compact('subject'))->withMessage(__('messages.lesson.store'));

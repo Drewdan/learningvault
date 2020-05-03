@@ -8,6 +8,13 @@
 			</div>
 			<div class="card-body table-responsive">
 				@include('layouts.messages')
+				@can('publishAny', App\Lesson::class)
+					@if($unpublished !== 0)
+						<div class="alert alert-info">
+							{{ trans_choice('notices.unpublished-lesson-notification', $unpublished, ['count' => $unpublished]) }}
+						</div>
+					@endif
+				@endcan
 				@if(!$lessons)
 					You have not contributed any lessons to open source learning...why not start now?
 				@else
