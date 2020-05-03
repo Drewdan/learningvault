@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpdateRequest;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller {
@@ -55,12 +56,16 @@ class UserController extends Controller {
 	 */
 	public function update(UpdateRequest $request, User $profile, User $user) {
 		$data = $request->validated();
-
 		$user->update($data);
+		if ($profile->can('updateRole', $user)) {
+			$user->syncRoles([$data['role']]);
+		}
 
-		$user->syncRoles([$data['role']]);
+		if ($profile->can('updateAny', $user)) {
+			return redirect()->route('profile.user.index', compact('profile'))->withMessage(__('messages.user.updated'));
+		}
 
-		return redirect()->route('profile.user.index', compact('profile'))->withMessage(__('messages.user.updated'));
+		return redirect()->route('profile.user.show', compact('profile', 'user'))->withMessage(__('messages.user.updated'));
 	}
 
 	/**

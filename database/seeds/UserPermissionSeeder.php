@@ -59,6 +59,27 @@ class UserPermissionSeeder extends Seeder {
 			]
 		);
 
+		/** Update Any */
+		$this->createAndAssign(
+			[
+				'name' => 'user.update.any',
+				'roles' => [
+					$admin,
+					$moderator,
+				],
+			]
+		);
+
+		/** Update Roles */
+		$this->createAndAssign(
+			[
+				'name' => 'user.update.role',
+				'roles' => [
+					$admin,
+				],
+			]
+		);
+
 		/** Delete */
 		$this->createAndAssign(
 			[
