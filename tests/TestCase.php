@@ -29,7 +29,7 @@ abstract class TestCase extends BaseTestCase {
 	 * @param  string|null $user
 	 * @return \App\User
 	 */
-	public function getUser(?string $email): User {
+	public function getUser(string $email = 'admin@example.com'): User {
 		$email = $email ?? $this->admin;
 
 		return User::whereEmail($email)->first();

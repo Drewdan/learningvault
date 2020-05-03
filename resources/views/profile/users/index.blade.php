@@ -15,7 +15,7 @@
 					<table class="table table-condensed table-striped">
 						<tr>
 							<th>User Name</th>
-							<th>Lesson Contributed</th>
+							<th>Lessons Contributed</th>
 							<th>User Role</th>
 							<th>Created</th>
 							<th>Last Updated</th>
