@@ -16,7 +16,7 @@ class LessonPolicy {
 	 * @return mixed
 	 */
 	public function viewAny(?User $user): bool {
-		return $user->can('lesson.index') || !$user;
+		return !$user || $user->can('lesson.index') ;
 	}
 
 	/**
@@ -36,7 +36,7 @@ class LessonPolicy {
 	 * @param  \App\User  $user
 	 * @return mixed
 	 */
-	public function create(User $user): bool {
+	public function create(?User $user): bool {
 		return $user->can('lesson.create');
 	}
 
@@ -48,7 +48,7 @@ class LessonPolicy {
 	 * @return mixed
 	 */
 	public function update(User $user, Lesson $lesson): bool {
-		return $user->can('lesson.update');
+		return $user->id === $lesson->user->id || $user->can('lesson.update');
 	}
 
 	/**
