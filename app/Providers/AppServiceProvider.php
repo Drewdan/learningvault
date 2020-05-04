@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Lesson;
 use App\Observers\LessonObserver;
+use App\Observers\UserObserver;
 use App\Subject;
+use App\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +34,8 @@ class AppServiceProvider extends ServiceProvider {
 			View::share('subjects', []);
 		}
 
+		//Register the application observers
 		Lesson::observe(LessonObserver::class);
+		User::observe(UserObserver::class);
 	}
 }
