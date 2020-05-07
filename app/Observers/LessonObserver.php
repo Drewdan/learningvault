@@ -3,7 +3,10 @@
 namespace App\Observers;
 
 use App\Lesson;
+use App\Notifications\LessonSubmitted;
+use App\User;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Notification;
 
 class LessonObserver {
 	/**
@@ -13,7 +16,8 @@ class LessonObserver {
 	 * @return void
 	 */
 	public function created(Lesson $lesson): void {
-		//
+		$users = User::role(['admin', 'moderator'])->get();
+		Notification::send($users, new LessonSubmitted($lesson));
 	}
 
 	/**
