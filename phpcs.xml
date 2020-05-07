@@ -15,7 +15,7 @@
 		</properties>
 	</rule>
 	<rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
-	<rule ref="Symfony.Arrays.MultiLineArrayComma" />
+<!--	<rule ref="Symfony.Arrays.MultiLineArrayComma" />-->
 	<rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
 		<properties>
 			<property name="ignoreBlankLines" value="false"/>
