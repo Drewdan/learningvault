@@ -19,7 +19,7 @@ class UpdateRequest extends FormRequest {
 			'show_author' => 'boolean',
 			'worksheets.*' => 'sometimes|file',
 			'learning_materials.*' => 'sometimes|file',
-			'published' => 'required|boolean',
+			'published' => 'sometimes|boolean',
 		];
 	}
 }

@@ -36,8 +36,8 @@
 								<td>{{ $lesson->published_at ? $lesson->published_at->format('d/m/Y H:i') : 'Not Yet Published' }}</td>
 								<td class="align-middle text-right">
 									{{-- <a class="btn btn-success" href="#"><img src="/svg/magnifying-glass.svg" alt="icon name"></a> --}}
-									<a class="btn btn-primary" href="{{ route('profile.lesson.edit', compact('profile', 'lesson')) }}"><img src="/svg/pencil.svg" alt="icon name"></a>
-									<form class="d-inline-block" action="{{ route('profile.lesson.destroy', compact('profile', 'lesson')) }}" method="post">
+									<a class="btn btn-primary" href="{{ route('profile.lesson.edit', compact('lesson')) }}"><img src="/svg/pencil.svg" alt="icon name"></a>
+									<form class="d-inline-block" action="{{ route('profile.lesson.destroy', compact('lesson')) }}" method="post">
 										@csrf()
 										@method('DELETE')
 										<button class="btn btn-danger" href="#"><img src="/svg/trash.svg" alt="icon name"></button>

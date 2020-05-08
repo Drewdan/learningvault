@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-sm-12">
 			@include('layouts.messages')
-			<form method="post" action="{{ route('profile.user.update', compact('profile', 'user')) }}">
+			<form method="post" action="{{ route('profile.user.update', compact('user')) }}">
 				@csrf
 				@method('PATCH')
 				<div class="form-group">
@@ -19,7 +19,7 @@
 								<option value="{{ $role->name }}"
 									@if($user->roles()->first()->name === $role->name)
 										selected
-									@endif 
+									@endif
 									>{{ ucfirst($role->name) }}</option>
 							@endforeach
 						</select>

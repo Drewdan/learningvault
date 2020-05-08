@@ -21,7 +21,7 @@
 					</ul>
 				</div>
 				<div class="card-footer">
-					<a href="{{ route('profile.user.edit', ['profile' => $user, 'user' => $user]) }}" class="btn btn-primary float-right">
+					<a href="{{ route('profile.user.edit', compact('user')) }}" class="btn btn-primary float-right">
 						Update Details
 					</a>
 				</div>

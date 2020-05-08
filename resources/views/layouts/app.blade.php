@@ -48,29 +48,29 @@
 							</a>
 
 							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="{{ route('profile.user.show', ['profile' => Auth::user(), 'user' => Auth::user()]) }}">
+								<a class="dropdown-item" href="{{ route('profile.user.show', ['user' => Auth::user()]) }}">
 									My Account
 								</a>
-								<a class="dropdown-item" href="{{ route('profile.lesson.index', ['profile' => Auth::user()]) }}">
+								<a class="dropdown-item" href="{{ route('profile.lesson.index') }}">
 									Lessons
 								</a>
 								@can('level.index')
-									<a class="dropdown-item" href="{{ route('profile.level.index', ['profile' => Auth::user()]) }}">
+									<a class="dropdown-item" href="{{ route('profile.level.index') }}">
 										Levels
 									</a>
 								@endcan
 								@can('subject.index')
-									<a class="dropdown-item" href="{{ route('profile.subject.index', ['profile' => Auth::user()]) }}">
+									<a class="dropdown-item" href="{{ route('profile.subject.index') }}">
 										Subjects
 									</a>
 								@endcan
 								@can('user.index')
-									<a class="dropdown-item" href="{{ route('profile.user.index', ['profile' => Auth::user()]) }}">
+									<a class="dropdown-item" href="{{ route('profile.user.index') }}">
 										Users
 									</a>
 								@endcan
 
-								
+
 								<a class="dropdown-item" href="{{ route('logout') }}"
 								   onclick="event.preventDefault();
 												 document.getElementById('logout-form').submit();">

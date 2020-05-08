@@ -20,9 +20,9 @@ class UserController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index(User $profile) {
+	public function index() {
 		$users = User::paginate();
-		return view('profile.users.index', compact('profile', 'users'));
+		return view('profile.users.index', compact('users'));
 	}
 
 	/**
@@ -31,7 +31,7 @@ class UserController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(User $profile, User $user) {
+	public function show(User $user) {
 		$lessons = $user->lessons ? $user->lessons()->paginate(15) : null;
 		return view('profile.users.show', compact('user', 'lessons'));
 	}
@@ -42,9 +42,9 @@ class UserController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(User $profile, User $user) {
+	public function edit(User $user) {
 		$roles = Role::all();
-		return view('profile.users.edit', compact('profile', 'user', 'roles'));
+		return view('profile.users.edit', compact('user', 'roles'));
 	}
 
 	/**
@@ -54,18 +54,18 @@ class UserController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(UpdateRequest $request, User $profile, User $user) {
+	public function update(UpdateRequest $request, User $user) {
 		$data = $request->validated();
 		$user->update($data);
-		if ($profile->can('updateRole', $user)) {
+		if (Auth::user()->can('updateRole', $user)) {
 			$user->syncRoles([$data['role']]);
 		}
 
-		if ($profile->can('updateAny', $user)) {
-			return redirect()->route('profile.user.index', compact('profile'))->withMessage(__('messages.user.updated'));
+		if (Auth::user()->can('updateAny', $user)) {
+			return redirect()->route('profile.user.index')->withMessage(__('messages.user.updated'));
 		}
 
-		return redirect()->route('profile.user.show', compact('profile', 'user'))->withMessage(__('messages.user.updated'));
+		return redirect()->route('profile.user.show', compact('user'))->withMessage(__('messages.user.updated'));
 	}
 
 	/**
@@ -74,8 +74,8 @@ class UserController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(User $profile, User $user) {
+	public function destroy(User $user) {
 		$user->delete();
-		return redirect()->route('profile.user.index', compact('profile'))->withMessage(__('messages.user.deleted'));
+		return redirect()->route('profile.user.index')->withMessage(__('messages.user.deleted'));
 	}
 }

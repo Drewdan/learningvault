@@ -3,12 +3,12 @@
 @section('content')
 	<div class="row">
 		<div class="col-sm-12">
-			@cannot('updateAny', $lesson)
+			@cannot('publishAny', $lesson)
 				<div class="alert alert-warning">
 					Making a change to this lesson will cause the lesson to become unpublished whilst a member of the team rereviews the lesson.
 				</div>
 			@endcannot
-			<form action="{{ route('profile.lesson.update', compact('profile', 'lesson')) }}" method="post" enctype="multipart/form-data">
+			<form action="{{ route('profile.lesson.update', compact('lesson')) }}" method="post" enctype="multipart/form-data">
 				<div class="card">
 						@csrf
 						@method('PATCH')
@@ -32,7 +32,7 @@
 										<option value="{{ $subject->id }}"
 										@if($subject->id === old('subject_id') || $subject->id === $lesson->subject_id)
 											selected
-										@endif	
+										@endif
 										>
 											{{ $subject->name }}
 										</option>
@@ -46,7 +46,7 @@
 										<option value="{{ $level->id }}"
 										@if($level->id === old('level_id') || $level->id === $lesson->level_id)
 											selected
-										@endif	
+										@endif
 										>
 											{{ $level->name }}
 										</option>
@@ -108,9 +108,11 @@
 								<div class="form-group">
 									<label>Published</label>
 									<select name="published" class="form-control">
-										<option value="1">Published</option>
-										<option value="0">Unpublished</option>
-									</select>	
+										<option value="1"
+										@if($lesson->published) selected @endif>Published</option>
+										<option value="0"
+										@if(!$lesson->published) selected @endif>Unpublished</option>
+									</select>
 								</div>
 							@endcan
 							<div class="form-group">

@@ -47,6 +47,7 @@ class UserPolicy {
 	 * @return bool
 	 */
 	public function update(User $user, User $model): bool {
+
 		return $user->id === $model->id || $user->can('user.update');
 	}
 
