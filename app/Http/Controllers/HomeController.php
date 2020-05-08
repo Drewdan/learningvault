@@ -16,7 +16,9 @@ class HomeController extends Controller {
 	 */
 	public function index(): View {
 		$subjects = Subject::all();
-		$lessons = Lesson::all()->where('published', true)->random()->take(4)->get();
+		$lessons = Lesson::all()->where('published', true)->count()
+			? Lesson::all()->where('published', true)->random()->take(4)->get()
+			: collect([]);
 		return view('home.index', compact('subjects', 'lessons'));
 	}
 }
