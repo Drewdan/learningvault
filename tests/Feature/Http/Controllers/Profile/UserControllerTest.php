@@ -10,20 +10,26 @@ class UserControllerTest extends TestCase {
 	use RefreshDatabaseAndMigrate;
 
 	public function testIndexRouteAsAdmin() {
-		$user = $this->signIn();
-		$response = $this->get('/profile/' . $user->id . '/user');
+		$this->signIn();
+		$response = $this->get('/profile/user');
 		$response->assertStatus(200);
 	}
 
 	public function testIndexRouteAsModerator() {
-		$user = $this->signIn('moderator@example.com');
-		$response = $this->get('/profile/' . $user->id . '/user');
+		$this->signIn('moderator@example.com');
+		$response = $this->get('/profile/user');
 		$response->assertStatus(200);
 	}
 
 	public function testIndexRouteAsUserIsRejected() {
+		$this->signIn('user@example.com');
+		$response = $this->get('/profile/user');
+		$response->assertStatus(403);
+	}
+
+	public function testShowAnotherUserAsAgentFails() {
 		$user = $this->signIn('user@example.com');
-		$response = $this->get('/profile/' . $user->id . '/user');
+		$response = $this->get('/profile/user/2/edit'); //this is the moderator test account
 		$response->assertStatus(403);
 	}
 

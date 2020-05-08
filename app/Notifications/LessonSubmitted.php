@@ -44,7 +44,7 @@ class LessonSubmitted extends Notification implements ShouldQueue{
 	 */
 	public function toMail($notifiable): MailMessage
 	{
-		$url = route('profile.lesson.edit', ['profile' => $notifiable, 'lesson' => $this->lesson]);
+		$url = route('profile.lesson.edit', ['lesson' => $this->lesson]);
 		return (new MailMessage)
 			->subject('New Lesson Submitted')
 			->line('A new lesson has been submitted for review')

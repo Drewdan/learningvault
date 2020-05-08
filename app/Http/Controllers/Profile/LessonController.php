@@ -22,10 +22,9 @@ class LessonController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index(User $profile) {
+	public function index() {
 		$lessons = Auth::user()->hasRole(['admin', 'moderator']) ? Lesson::orderBy('published_at', 'asc')->paginate(15) : Lesson::belongsToUser()->paginate(15);
 		return view('profile.lessons.index', [
-			'profile' => $profile,
 			'lessons' => $lessons,
 			'unpublished' => Lesson::unpublished()->get()->count(),
 		]);
@@ -66,10 +65,10 @@ class LessonController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(User $profile, Lesson $lesson) {
+	public function edit(Lesson $lesson) {
 		$subjects = Subject::all();
 		$levels = Level::all();
-		return view('profile.lessons.edit', compact('profile', 'lesson', 'subjects', 'levels'));
+		return view('profile.lessons.edit', compact('lesson', 'subjects', 'levels'));
 	}
 
 	/**
@@ -79,12 +78,12 @@ class LessonController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(UpdateRequest $request, User $profile, Lesson $lesson) {
+	public function update(UpdateRequest $request, Lesson $lesson) {
 		$lesson->update($request->validated());
-		if ($profile->cannot('publishAny', $lesson)) {
+		if (Auth::user()->cannot('publishAny', $lesson)) {
 			$lesson->update(['published' => false]);
 		}
-		return redirect()->route('profile.lesson.index', compact('profile'))->withMessage(__('messages.lesson.updated'));
+		return redirect()->route('profile.lesson.index')->withMessage(__('messages.lesson.updated'));
 	}
 
 	/**
@@ -93,7 +92,7 @@ class LessonController extends Controller {
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(User $profile, Lesson $lesson) {
+	public function destroy(Lesson $lesson) {
 		$lesson->delete();
 		return redirect()->back()->withMessage(__('messages.lesson.deleted'));
 	}

@@ -21,7 +21,7 @@ Route::prefix('games')->group(function () {
 	Route::get('/mathematical-magicians', 'Games\MathematicalMagiciansController@index')->name('games.mathematical-magicians');
 });
 
-Route::prefix('profile/{profile}')->name('profile.')->group(function () {
+Route::prefix('profile/')->name('profile.')->group(function () {
 	Route::resource('subject', 'Profile\SubjectController');
 	Route::resource('lesson', 'Profile\LessonController');
 	Route::resource('level', 'Profile\LevelController');
