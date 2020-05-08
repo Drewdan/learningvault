@@ -19,19 +19,23 @@
 					Learning Materials
 				</div>
 				<ul class="list-group">
-					@foreach($lesson->learningMaterials as $learningMaterial)
-						<li class="list-group-item">
-							{{ $learningMaterial->original_name }} - {{ $learningMaterial->size }}Kb
-							<a href="{{ route('file-download.show', ['file' => $learningMaterial->file, 'type' => 'learningMaterial' ]) }}" class="btn btn-outline-success btn-sm float-right">
-								@auth
-									Download
-								@endauth
-								@guest
-									Login to Download Files
-								@endguest
-							</a>
-						</li>
-					@endforeach
+					@if($lesson->learningMaterials->count())
+						@foreach($lesson->learningMaterials as $learningMaterial)
+							<li class="list-group-item">
+								{{ $learningMaterial->original_name }} - {{ $learningMaterial->size }}Kb
+								<a href="{{ route('file-download.show', ['file' => $learningMaterial->file, 'type' => 'learningMaterial' ]) }}" class="btn btn-outline-success btn-sm float-right">
+									@auth
+										Download
+									@endauth
+									@guest
+										Login to Download Files
+									@endguest
+								</a>
+							</li>
+						@endforeach
+					@else
+						<li class="list-group-item">There are no learning materials for this lesson</li>
+					@endif
 				</ul>
 			</div>
 			<div class="card my-3">
@@ -39,9 +43,10 @@
 					Worksheets
 				</div>
 				<ul class="list-group">
-				@foreach($lesson->worksheets as $worksheet)
+				@if($lesson->worksheets->count())
+					@foreach($lesson->worksheets as $worksheet)
 						<li class="list-group-item">
-							{{ $worksheet->original_name }} - {{ $learningMaterial->size }}Kb
+							{{ $worksheet->original_name }} - {{ $worksheet->size }}Kb
 							<a href="{{ route('file-download.show', ['file' => $worksheet->file, 'type' => 'worksheet' ]) }}" class="btn btn-outline-success btn-sm float-right">
 								@auth
 									Download
@@ -52,6 +57,9 @@
 							</a>
 						</li>
 					@endforeach
+					@else
+						<li class="list-group-item">There are no worksheets for this lesson</li>
+					@endif
 				</ul>
 			</div>
 		</div>
