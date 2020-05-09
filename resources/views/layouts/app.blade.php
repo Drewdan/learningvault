@@ -30,7 +30,7 @@
 						<a class="text-muted" href="#">Subscribe</a>
 					</div>
 					<div class="col-sm-12 col-md-6 text-center text-center">
-						<a class="blog-header-logo text-dark" href="/">Open Source Learning</a>
+						<a class="blog-header-logo text-dark" href="/">{{ config('app.name', 'Learning Vault') }}</a>
 					</div>
 					<div class="col-sm-12 col-md-3 d-flex justify-content-center ml-auto mt-3 mt-md-0">
 						<a class="text-muted d-none d-md-block" href="#">
