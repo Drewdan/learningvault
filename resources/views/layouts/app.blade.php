@@ -7,7 +7,7 @@
 	<meta name="author" content="">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
-	<title>{{ config('app.name', 'Open Source Learning') }}</title>
+	<title>@yield('title', config('app.name', 'Learning Vault'))</title>
 
 	<!-- Scripts -->
 	<script src="{{ asset('js/app.js') }}" defer></script>
