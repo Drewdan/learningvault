@@ -34,6 +34,7 @@ Route::get('/file-download', 'FileDownloadController@show')->name('file-download
 
 Route::resource('level', 'LevelController');
 Route::resource('subject', 'SubjectController');
+Route::resource('search', 'SearchController')->only('index');
 Route::prefix('subject/{subject}')->group(function () {
 	Route::resource('lesson', 'LessonController');
 });
